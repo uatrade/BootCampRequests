@@ -7,6 +7,7 @@ namespace OrderManagemenet.Models
 {
     public class RequestList
     {
-        public Request[] requests { get; set; }
+        public int id { get; set; }
+        public IEnumerable<Request> requests { get; set; }
     }
 }

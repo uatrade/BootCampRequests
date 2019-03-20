@@ -7,8 +7,8 @@ namespace OrderManagemenet.Models
 {
     public class Request
     {
-        public int clientId { get; set; }
         public long requestId { get; set; }
+        public int clientId { get; set; }
         public string name { get; set; }
         public int quantity { get; set; }
         public double price { get; set; }

@@ -1,4 +1,4 @@
-﻿@model OrderManagemenet.Models.RequestList
+﻿@model List<OrderManagemenet.Models.Request>
 
 @{
     ViewBag.Title = "Home Page";
@@ -17,9 +17,10 @@
                 <div class="col-xs-2">Quantity</div>
                 <div class="col-xs-2">Price</div>
             </div>
-            @if (ViewBag.File != null)
+
+            @if(Model!=null)
             {
-                foreach (var item in Model.requests)
+                foreach (var item in Model)
                 {
                     <div class="row">
                         <div class="col-xs-2">@item.clientId</div>
@@ -30,6 +31,7 @@
                     </div>
                 }
             }
+
         </div>
         
         <div class="col-lg-3">
