@@ -161,17 +161,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903190939499_InitialCreate.cs" />
-    <Compile Include="Migrations\201903190939499_InitialCreate.Designer.cs">
-      <DependentUpon>201903190939499_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903190943109_create.cs" />
-    <Compile Include="Migrations\201903190943109_create.Designer.cs">
-      <DependentUpon>201903190943109_create.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903190947412_Second.cs" />
-    <Compile Include="Migrations\201903190947412_Second.Designer.cs">
-      <DependentUpon>201903190947412_Second.cs</DependentUpon>
+    <Compile Include="Migrations\201903221657398_Id.cs" />
+    <Compile Include="Migrations\201903221657398_Id.Designer.cs">
+      <DependentUpon>201903221657398_Id.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OrderContext.cs" />
@@ -227,17 +219,6 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903190939499_InitialCreate.resx">
-      <DependentUpon>201903190939499_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903190943109_create.resx">
-      <DependentUpon>201903190943109_create.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903190947412_Second.resx">
-      <DependentUpon>201903190947412_Second.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -249,6 +230,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Download\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903221657398_Id.resx">
+      <DependentUpon>201903221657398_Id.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

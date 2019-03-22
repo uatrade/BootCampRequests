@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#requestShow {
+    background-color: aliceblue;
+    padding-left:15px;
+    max-height: 60vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.titles {
+    background-color:blanchedalmond;
+}

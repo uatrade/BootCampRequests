@@ -5,33 +5,34 @@
 }
 
 
-<h1>Order List</h1>
+<h1>Request List</h1>
 
 <div class="container">
     <div class="row">
         <div class="col-lg-9">
-            <div class="row">
-                <div class="col-xs-2">ClientId</div>
-                <div class="col-xs-2">RequestId</div>
-                <div class="col-xs-2">Name</div>
-                <div class="col-xs-2">Quantity</div>
-                <div class="col-xs-2">Price</div>
-            </div>
+            <div id="requestShow">
+                <div class="row titles">
+                    <div class="col-xs-2">@Html.ActionLink("RequestId", "Sort", "Home", new { order_by = "requestId" }, null)</div>
+                    <div class="col-xs-2">@Html.ActionLink("ClientId", "Sort", "Home", new { order_by = "clientId" }, null)</div>
+                    <div class="col-xs-2">@Html.ActionLink("Name", "Sort", "Home", new { order_by = "name" }, null)</div>
+                    <div class="col-xs-2">@Html.ActionLink("Quantity", "Sort", "Home", new { order_by = "quantity" }, null)</div>
+                    <div class="col-xs-2">@Html.ActionLink("Price", "Sort", "Home", new { order_by = "price" }, null)</div>
+                </div>
 
-            @if(Model!=null)
-            {
-                foreach (var item in Model)
+                @if (Model != null)
                 {
-                    <div class="row">
-                        <div class="col-xs-2">@item.clientId</div>
-                        <div class="col-xs-2">@item.requestId</div>
-                        <div class="col-xs-2">@item.name</div>
-                        <div class="col-xs-2">@item.quantity</div>
-                        <div class="col-xs-2">@item.price</div>
-                    </div>
+                    foreach (var item in Model)
+                    {
+                <div class="row">
+                    <div class="col-xs-2">@item.requestId</div>
+                    <div class="col-xs-2">@item.clientId</div>
+                    <div class="col-xs-2">@item.name</div>
+                    <div class="col-xs-2">@item.quantity</div>
+                    <div class="col-xs-2">@item.price</div>
+                </div>
+                    }
                 }
-            }
-
+            </div>
         </div>
         
         <div class="col-lg-3">
@@ -42,6 +43,18 @@
                     <input type="file" name="upload" class="form-control-file" id="upload"><br />
                     <button type="submit" class="btn btn-primary">Submit</button>
                     @ViewBag.File
+                </div>
+            }
+
+            @using (Html.BeginForm("Download", "Home", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <label for="upload">Download JSON Report</label><br />
+                    <button type="submit" class="btn btn-primary">Create Report</button>
+                    @if(ViewBag.Download!=null)
+                    {
+                    <a href="~/Download/data.json" download style="color:red">DowloadReport</a>
+                    }
                 </div>
             }
 

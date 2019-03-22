@@ -10,7 +10,6 @@ namespace OrderManagemenet.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "OrderManagemenet.Models.OrderContext";
         }
 
         protected override void Seed(OrderManagemenet.Models.OrderContext context)

@@ -7,12 +7,14 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Hosting;
-
+using System.Xml.Linq;
+//using System.Xml.Serialization;
 
 namespace OrderManagemenet.Models
 {
     public class RequestMetod
     {
+        static bool sortTopDown = false;  // change Sort ASC to DESC when NextClick
         public bool CheckFileExtension(string fileName)    // check type of file
         {
             try
@@ -31,7 +33,7 @@ namespace OrderManagemenet.Models
                 }
                 if (Path.GetExtension(fileName) == ".xml")
                 {
-                    //bool res = AddFileJson(fullPath);
+                    bool res = AddFileXml(fullPath);
                     return true;
                 }
             }
@@ -115,6 +117,45 @@ namespace OrderManagemenet.Models
             }
         }
 
+        public bool AddFileXml(string fullPath)
+        {
+            try
+            {
+                XDocument doc = XDocument.Load(fullPath);
+                foreach(XElement el in doc.Root.Elements())
+                {
+                    Request request = new Request();
+                    foreach (XElement element in el.Elements())
+                    {
+                        if(element.Name== "clientId")
+                            request.clientId = Int32.Parse(element.Value);
+                        if(element.Name == "requestId")
+                            request.requestId = Int64.Parse(element.Value);
+                        if (element.Name == "name")
+                            request.name = element.Value;
+                        if (element.Name == "quantity")
+                            request.quantity = Int32.Parse(element.Value);
+                        if (element.Name == "price")
+                        {
+                            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+                            request.price = double.Parse(element.Value);
+                        }
+                    }
+                    using (OrderContext db = new OrderContext())
+                    {
+                        db.Requests.Add(request);
+                        db.SaveChanges();
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public List<Request> GetRequests()
         {
            try
@@ -128,6 +169,92 @@ namespace OrderManagemenet.Models
             catch (Exception)
             {
                 return null;
+            }
+        }
+        public List<Request> SortRequests(string order_by)
+        {
+            try
+            {
+                var res = GetRequests();
+                if (res != null&& order_by=="name"&& sortTopDown==false)
+                {
+                    sortTopDown = true;
+                        return res.OrderBy(x => x.name).ToList();
+                }
+                if (res != null && order_by == "name"&& sortTopDown==true)
+                {
+                    sortTopDown = false;
+                    return res.OrderByDescending(x => x.name).ToList();
+                }
+
+                if (res != null && order_by == "requestId"&& sortTopDown == false)
+                {
+                    sortTopDown = true;
+                    return res.OrderBy(x => x.requestId).ToList();
+                }
+                if (res != null && order_by == "requestId" && sortTopDown == true)
+                {
+                    sortTopDown = false;
+                    return res.OrderByDescending(x => x.requestId).ToList();
+                }
+                if (res != null && order_by == "clientId" && sortTopDown == false)
+                {
+                    sortTopDown = true;
+                    return res.OrderBy(x => x.clientId).ToList();
+                }
+                if (res != null && order_by == "clientId" && sortTopDown == true)
+                {
+                    sortTopDown = false;
+                    return res.OrderByDescending(x => x.clientId).ToList();
+                }
+                if (res != null && order_by == "quantity" && sortTopDown == false)
+                {
+                    sortTopDown = true;
+                    return res.OrderBy(x => x.quantity).ToList();
+                }
+                if (res != null && order_by == "quantity" && sortTopDown == true)
+                {
+                    sortTopDown = false;
+                    return res.OrderByDescending(x => x.quantity).ToList();
+                }
+                if (res != null && order_by == "price" && sortTopDown == false)
+                {
+                    sortTopDown = true;
+                    return res.OrderBy(x => x.price).ToList();
+                }
+                if (res != null && order_by == "price" && sortTopDown == true)
+                {
+                    sortTopDown = false;
+                    return res.OrderByDescending(x => x.price).ToList();
+                }
+                else
+                    return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public bool DownLoad()
+        {
+            try
+            {
+                var dataFile = HttpContext.Current.Server.MapPath("~/Download/data.json");
+
+                using (OrderContext db = new OrderContext())
+                {
+                    var res = db.Requests.ToList();
+                    string json = JsonConvert.SerializeObject(res);
+                    if(json==null)
+                        return false;
+                    File.WriteAllText(dataFile, json);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
     }
