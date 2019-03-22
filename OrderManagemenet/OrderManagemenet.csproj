@@ -165,6 +165,10 @@
     <Compile Include="Migrations\201903221657398_Id.Designer.cs">
       <DependentUpon>201903221657398_Id.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903221749520_size.cs" />
+    <Compile Include="Migrations\201903221749520_size.Designer.cs">
+      <DependentUpon>201903221749520_size.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OrderContext.cs" />
     <Compile Include="Models\Request.cs" />
@@ -237,6 +241,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903221657398_Id.resx">
       <DependentUpon>201903221657398_Id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903221749520_size.resx">
+      <DependentUpon>201903221749520_size.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <label for="upload">Input list of orders</label>
                     <input type="file" name="upload" class="form-control-file" id="upload"><br />
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Add Data</button>
                     @ViewBag.File
                 </div>
             }
@@ -53,7 +53,7 @@
                     <button type="submit" class="btn btn-primary">Create Report</button>
                     @if(ViewBag.Download!=null)
                     {
-                    <a href="~/Download/data.json" download style="color:red">DowloadReport</a>
+                    <a href="~/Download/data.json" download style="color:red"><b>Download Report</b></a>
                     }
                 </div>
             }
