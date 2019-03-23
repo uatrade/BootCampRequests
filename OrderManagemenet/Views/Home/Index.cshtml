@@ -23,17 +23,27 @@
                 {
                     foreach (var item in Model)
                     {
-                <div class="row">
-                    <div class="col-xs-2">@item.requestId</div>
-                    <div class="col-xs-2">@item.clientId</div>
-                    <div class="col-xs-2">@item.name</div>
-                    <div class="col-xs-2">@item.quantity</div>
-                    <div class="col-xs-2">@item.price</div>
-                </div>
+                        <div class="row">
+                            <div class="col-xs-2">@item.requestId</div>
+                            <div class="col-xs-2">@item.clientId</div>
+                            <div class="col-xs-2">@item.name</div>
+                            <div class="col-xs-2">@item.quantity</div>
+                            <div class="col-xs-2">@item.price</div>
+                        </div>
                     }
                 }
             </div>
-        </div>
+            @if (Model != null)
+            {
+                    <div class="row">
+                        <div class="col-xs-2"><p></p></div>
+                        <div class="col-xs-2"><p></p></div>
+                        <div class="col-xs-2"><p></p></div>
+                        <div class="col-xs-2">Total:@Model.Select(x => x.quantity).Sum()</div>
+                        <div class="col-xs-2">Total:@Model.Select(x => x.price).Sum() <br />Average: @Model.Select(x => x.price).Average()</div>
+                    </div>
+            }
+           </div>
         
         <div class="col-lg-3">
             @using (Html.BeginForm("AddFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -51,10 +61,18 @@
                 <div class="form-group">
                     <label for="upload">Download JSON Report</label><br />
                     <button type="submit" class="btn btn-primary">Create Report</button>
-                    @if(ViewBag.Download!=null)
+                    @if (ViewBag.Download != null)
                     {
-                    <a href="~/Download/data.json" download style="color:red"><b>Download Report</b></a>
+                        <a href="~/Download/data.json" download style="color:red"><b>Download Report</b></a>
                     }
+                </div>
+            }
+
+            @using (Html.BeginForm("ClientInfo", "Home", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <input name="clientId" placeholder="Input Client Id"/>
+                    <button type="submit" class="btn btn-primary">Get Info about Client Id</button>
                 </div>
             }
 

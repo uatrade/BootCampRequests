@@ -54,6 +54,26 @@ namespace OrderManagemenet.Controllers
             }
             return View("Index", requestMetod.GetRequests());
         }
-        
+        public ActionResult ClientInfo(string clientId)
+        {
+            RequestMetod requestMetod = new RequestMetod();
+            try
+            {
+                if (clientId != null)
+                {
+                    var resList = requestMetod.GetClientInfo(clientId);
+                    if (resList != null)
+                    {
+                        return View("Index", resList);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return View("Index", requestMetod.GetRequests());
+            }
+            return View("Index", requestMetod.GetRequests());
+        }
+
     }
 }

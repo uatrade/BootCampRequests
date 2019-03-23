@@ -171,6 +171,23 @@ namespace OrderManagemenet.Models
                 return null;
             }
         }
+
+        public List<Request> GetClientInfo(string clientId)
+        {
+            try
+            {
+                using (OrderContext db = new OrderContext())
+                {
+                    int client = Int32.Parse(clientId);
+                    var res = db.Requests.Where(x => x.clientId == client).ToList();
+                    return res;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         public List<Request> SortRequests(string order_by)
         {
             try
@@ -179,7 +196,7 @@ namespace OrderManagemenet.Models
                 if (res != null&& order_by=="name"&& sortTopDown==false)
                 {
                     sortTopDown = true;
-                        return res.OrderBy(x => x.name).ToList();
+                    return res.OrderBy(x => x.name).ToList();
                 }
                 if (res != null && order_by == "name"&& sortTopDown==true)
                 {
