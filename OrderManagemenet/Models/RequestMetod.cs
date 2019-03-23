@@ -188,6 +188,21 @@ namespace OrderManagemenet.Models
                 return null;
             }
         }
+        public List<Request> GetRequestNameInfo(string name)
+        {
+            try
+            {
+                using (OrderContext db = new OrderContext())
+                {
+                    var res = db.Requests.Where(x => x.name == name).ToList();
+                    return res;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         public List<Request> SortRequests(string order_by)
         {
             try

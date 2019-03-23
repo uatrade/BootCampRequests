@@ -62,7 +62,28 @@ namespace OrderManagemenet.Controllers
                 if (clientId != null)
                 {
                     var resList = requestMetod.GetClientInfo(clientId);
-                    if (resList != null)
+                    if (resList.Count !=0)
+                    {
+                        return View("Index", resList);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return View("Index", requestMetod.GetRequests());
+            }
+            return View("Index", requestMetod.GetRequests());
+        }
+
+        public ActionResult RequestName(string name)
+        {
+            RequestMetod requestMetod = new RequestMetod();
+            try
+            {
+                if (name != null)
+                {
+                    var resList = requestMetod.GetRequestNameInfo(name);
+                    if (resList.Count != 0)
                     {
                         return View("Index", resList);
                     }
