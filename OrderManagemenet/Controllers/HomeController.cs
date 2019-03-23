@@ -25,14 +25,21 @@ namespace OrderManagemenet.Controllers
         }
         public ActionResult AddFile(HttpPostedFileBase upload)
         {
-            string fileName = System.IO.Path.GetFileName(upload.FileName);
-            upload.SaveAs(Server.MapPath("~/RequestFiles/" + fileName));
             RequestMetod requestMetod = new RequestMetod();
-            bool res = requestMetod.CheckFileExtension(fileName);
-            if(res)
-            ViewBag.File = "Загружен";
-            var resList = GetAllRequest();
-            return View("Index", resList);
+            try
+            {
+                string fileName = System.IO.Path.GetFileName(upload.FileName);
+                upload.SaveAs(Server.MapPath("~/RequestFiles/" + fileName));
+                bool res = requestMetod.CheckFileExtension(fileName);
+                if (res)
+                    ViewBag.File = "Загружен";
+                var resList = GetAllRequest();
+                return View("Index", resList);
+            }
+            catch (Exception)
+            {
+                return View("Index", requestMetod.GetRequests());
+            }
         }
 
         public ActionResult Download()

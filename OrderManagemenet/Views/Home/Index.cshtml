@@ -33,8 +33,10 @@
                     }
                 }
             </div>
-            @if (Model.Count >= 0)
+            @if (Model != null)
             {
+                if (Model.Count > 0)
+                {
                     <div class="row">
                         <div class="col-xs-2"><p></p></div>
                         <div class="col-xs-2"><p></p></div>
@@ -42,8 +44,9 @@
                         <div class="col-xs-2">Total:@Model.Select(x => x.quantity).Sum()</div>
                         <div class="col-xs-2">Total:@Model.Select(x => x.price).Sum() <br />Average: @Model.Select(x => x.price).Average()</div>
                     </div>
+                }
             }
-           </div>
+        </div>
         
         <div class="col-lg-3">
             @using (Html.BeginForm("AddFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
